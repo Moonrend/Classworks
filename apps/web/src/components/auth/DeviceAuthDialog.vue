@@ -88,6 +88,7 @@ const form = ref({
 })
 const authenticating = ref(false)
 const error = ref('')
+let autoExecuteStarted = false
 
 // 监听预配置数据变化
 watch(
@@ -99,7 +100,8 @@ watch(
       form.value.password = newPreconfig.password || ''
 
       // 如果启用自动执行且有命名空间，自动尝试认证
-      if (newPreconfig.autoExecute && newPreconfig.namespace) {
+      if (newPreconfig.autoExecute && newPreconfig.namespace && !autoExecuteStarted) {
+        autoExecuteStarted = true
         console.log('检测到自动执行标志且有命名空间，自动执行认证')
         // 延迟一下确保UI已更新
         setTimeout(() => {
