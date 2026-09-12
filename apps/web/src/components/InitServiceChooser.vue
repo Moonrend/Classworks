@@ -92,7 +92,7 @@
       <FirstTimeGuide @close="showGuideDialog = false" @success="handleGuideSuccess" />
     </v-dialog>
 
-    <v-dialog v-model="showDeviceAuthDialog" max-width="500">
+    <v-dialog v-model="showDeviceAuthDialog" eager max-width="500">
       <DeviceAuthDialog
         ref="deviceAuthDialog"
         :preconfig="deviceAuthPreconfig"
@@ -173,29 +173,39 @@ const deviceAuthPreconfig = computed(() => {
 })
 
 const evaluateVisibility = () => {
-  const path = window.location.pathname
-  const onHome = path === '/' || path === '/index' || path === '/index.html'
+  // 父级 shouldShowInit 已限制仅首页渲染本组件，这里只再确认是否仍需授权
   const need = isKvProvider.value && (!kvToken.value || kvToken.value === '')
-  visible.value = onHome && need
+  visible.value = need
 }
 
-// 监听预配数据变化，自动打开设备认证对话框
+// 预配数据可能在异步组件加载前就已解析完毕；此时 immediate watch 会赶上 visible 仍为 false。
+// 因此在 visible 变为 true 后再尝试一次自动打开。
+const tryAutoOpenDeviceAuth = () => {
+  if (!visible.value || showDeviceAuthDialog.value) return
+  if (!props.preconfig?.autoOpen || !props.preconfig?.namespace) return
+  console.log('检测到预配数据，自动打开设备认证对话框')
+  setTimeout(() => {
+    showDeviceAuthDialog.value = true
+  }, 500)
+}
+
+evaluateVisibility()
+
 watch(
   () => props.preconfig,
-  (newPreconfig) => {
-    if (newPreconfig?.autoOpen && newPreconfig?.namespace && visible.value) {
-      console.log('检测到预配数据，自动打开设备认证对话框')
-      // 延迟一下确保组件已完全挂载
-      setTimeout(() => {
-        showDeviceAuthDialog.value = true
-      }, 500)
-    }
+  () => {
+    tryAutoOpenDeviceAuth()
   },
   { immediate: true, deep: true },
 )
 
+watch(visible, (isVisible) => {
+  if (isVisible) tryAutoOpenDeviceAuth()
+})
+
 onMounted(() => {
   evaluateVisibility()
+  tryAutoOpenDeviceAuth()
 })
 
 const handleAutoAuthorize = () => {

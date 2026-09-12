@@ -60,6 +60,7 @@ import {
 import { Github, Globe, ChevronRight, Loader2 } from 'lucide-vue-next'
 import { apiClient } from '@/lib/api'
 import { toast } from 'vue-sonner'
+import { DEFAULT_LOCAL_SERVER } from '@classworks/shared'
 
 const props = defineProps({
   modelValue: Boolean,
@@ -113,7 +114,7 @@ const loadProviders = async () => {
 // 处理登录
 const handleLogin = (provider) => {
   // 构建OAuth URL
-  const authUrl = `${import.meta.env.VITE_API_BASE_URL || 'http://localhost:3030'}${provider.authUrl}`
+  const authUrl = `${import.meta.env.VITE_API_BASE_URL || DEFAULT_LOCAL_SERVER}${provider.authUrl}`
 
   // 打开新窗口进行OAuth认证
   const width = 600

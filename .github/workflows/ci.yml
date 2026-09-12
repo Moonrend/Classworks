@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   pull_request:
-    branches: ["main"]
+    branches: ['main']
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ jobs:
       - uses: ./.github/actions/setup-pnpm
 
       - name: Lint (ESLint)
-        run: pnpm run lint
+        run: pnpm run lint:check
 
       - name: Format check (Prettier)
         run: pnpm run format:check

@@ -17,6 +17,12 @@ import accountsRouter from './routes/accounts.js'
 import autoAuthRouter from './routes/auto-auth.js'
 import { register } from './utils/metrics.js'
 import cors from 'cors'
+import {
+  HEADER_APP_TOKEN,
+  HEADER_SITE_KEY,
+  HEADER_DEVICE_UUID,
+  HEADER_DEVICE_PASSWORD,
+} from '@classworks/shared'
 
 var app = express()
 
@@ -26,7 +32,16 @@ app.use(
     exposedHeaders: ['ratelimit-policy', 'retry-after', 'ratelimit'], // 告诉浏览器这些响应头可以暴露
     maxAge: 86400, // 设置OPTIONS请求的结果缓存24小时(86400秒)，减少预检请求
     credentials: true, // 允许跨域请求携带凭证
-    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'], // 允许的请求头
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With',
+      'Accept',
+      HEADER_APP_TOKEN,
+      HEADER_SITE_KEY,
+      HEADER_DEVICE_UUID,
+      HEADER_DEVICE_PASSWORD,
+    ],
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'], // 允许的HTTP方法
     withCredentials: true, // 允许携带cookie等凭证信息
   }),

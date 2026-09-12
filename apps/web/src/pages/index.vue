@@ -1001,6 +1001,8 @@ export default {
   },
 
   created() {
+    // 尽早解析预配 query，避免异步 InitServiceChooser 挂载时还读到空数据
+    this.parsePreconfigData()
     this.debouncedUpload = debounce(this.uploadData, 2000)
     this.debouncedAttendanceSave = debounce(async () => {
       if (this.autoSave) {
@@ -1265,9 +1267,6 @@ export default {
     },
 
     async initializeData() {
-      // 解析预配数据
-      this.parsePreconfigData()
-
       const configApplied = await this.parseUrlConfig()
 
       const urlParams = new URLSearchParams(window.location.search)
@@ -2342,9 +2341,11 @@ export default {
     parsePreconfigData() {
       try {
         const urlParams = new URLSearchParams(window.location.search)
-        const namespace = urlParams.get('namespace')
-        const authCode = urlParams.get('authCode') || urlParams.get('auth_code')
-        const autoExecute = urlParams.get('autoExecute') || urlParams.get('auto_execute')
+        const routeQuery = this.$route?.query || {}
+        const pickParam = (key) => urlParams.get(key) || routeQuery[key] || null
+        const namespace = pickParam('namespace')
+        const authCode = pickParam('authCode') || pickParam('auth_code')
+        const autoExecute = pickParam('autoExecute') || pickParam('auto_execute')
 
         if (namespace) {
           this.preconfigData.namespace = namespace

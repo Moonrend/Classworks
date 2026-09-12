@@ -3,6 +3,7 @@
 **/node_modules/**
 **/coverage/**
 **/generated/**
+**/vendor/**
 **/pnpm-lock.yaml
 **/package-lock.json
 **/*.min.js
@@ -11,4 +12,5 @@ apps/server/public/**
 apps/web/public/sounds/**
 apps/web/public/uaf/**
 apps/web/public/pwa/**
+apps/web/src/utils/soundList.js
 pnpm-workspace.yaml
