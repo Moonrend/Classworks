@@ -3,6 +3,9 @@
  * 防止组件卸载时的事件处理错误
  */
 
+import { ref, onBeforeUnmount } from 'vue'
+import { on } from '@/utils/socketClient'
+
 /**
  * 创建安全的 Vue 组件混入，用于管理事件监听器
  * @returns {Object} Vue mixin 对象
@@ -114,7 +117,6 @@ export const socketEventMixin = {
      */
     $socketOn(event, handler) {
       return this.$safeOn(() => {
-        const { on } = require('@/utils/socketClient')
         return on(event, this.$safeHandler(handler))
       })
     },
@@ -156,8 +158,6 @@ export function withSafeEvents(component) {
  * Composition API 版本的安全事件处理
  */
 export function useSafeEvents() {
-  const { ref, onBeforeUnmount } = require('vue')
-
   const isDestroying = ref(false)
   const cleanupFunctions = ref([])
 

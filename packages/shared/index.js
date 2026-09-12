@@ -1,2 +1,7 @@
-export { HEADER_APP_TOKEN, HEADER_SITE_KEY, HEADER_DEVICE_UUID } from './headers.js'
+export {
+  HEADER_APP_TOKEN,
+  HEADER_SITE_KEY,
+  HEADER_DEVICE_UUID,
+  HEADER_DEVICE_PASSWORD,
+} from './headers.js'
 export { DEFAULT_KV_SERVER, DEFAULT_LOCAL_SERVER, CLOUD_SERVERS } from './constants.js'

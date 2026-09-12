@@ -1,3 +1,5 @@
+import { DEFAULT_KV_SERVER } from '@classworks/shared'
+
 // 请求通知权限
 async function requestNotificationPermission() {
   if (typeof Notification !== 'undefined' && Notification.requestPermission) {
@@ -64,8 +66,7 @@ const SETTINGS_CHANGED_EVENT = 'classworks:settings:changed'
 
 // 新增: Classworks云端存储的默认设置
 const classworksCloudDefaults = {
-  'server.domain': import.meta.env.VITE_DEFAULT_KV_SERVER || 'https://kv-service.wuyuan.dev',
-  //"server.domain": "http://localhost:3030",
+  'server.domain': import.meta.env.VITE_DEFAULT_KV_SERVER || DEFAULT_KV_SERVER,
   'server.siteKey': '',
 }
 

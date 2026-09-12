@@ -1,3 +1,4 @@
+import { DEFAULT_KV_SERVER } from '@classworks/shared'
 import { kvLocalProvider } from './providers/kvLocalProvider'
 import { kvServerProvider } from './providers/kvServerProvider'
 import { getSetting, setSetting } from './settings'
@@ -243,8 +244,7 @@ export default {
         if (autoConfigureCloud) {
           // 使用classworksCloudDefaults配置
           const classworksCloudDefaults = {
-            'server.domain':
-              import.meta.env.VITE_DEFAULT_KV_SERVER || 'https://kv-service.wuyuan.dev',
+            'server.domain': import.meta.env.VITE_DEFAULT_KV_SERVER || DEFAULT_KV_SERVER,
             'server.siteKey': '',
           }
 

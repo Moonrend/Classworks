@@ -10,10 +10,12 @@
  *   或配置为可执行：chmod +x cli/get-token.js && ./cli/get-token.js
  */
 
+import { DEFAULT_LOCAL_SERVER, HEADER_SITE_KEY } from '@classworks/shared'
+
 // 配置
 const CONFIG = {
   // API服务器地址
-  baseUrl: process.env.API_BASE_URL || 'http://localhost:3030',
+  baseUrl: process.env.API_BASE_URL || DEFAULT_LOCAL_SERVER,
   // 站点密钥
   siteKey: process.env.SITE_KEY || '',
   // 应用ID
@@ -67,7 +69,7 @@ async function request(path, options = {}) {
   }
 
   if (CONFIG.siteKey) {
-    headers['X-Site-Key'] = CONFIG.siteKey
+    headers[HEADER_SITE_KEY] = CONFIG.siteKey
   }
 
   try {

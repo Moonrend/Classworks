@@ -6,4 +6,3 @@ apps/web
 apps/dashboard
 examples
 *.md
-!packages/shared/package.json

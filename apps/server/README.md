@@ -24,7 +24,7 @@ See [LICENSE](./LICENSE) for details.
 在根目录创建或编辑 `.env`：
 
 - 基础地址（用于回调）：
-  - `BASE_URL`: `http://localhost:3030`
+  - `BASE_URL`: `http://localhost:3000`
   - `FRONTEND_URL`: `http://localhost:5173`
 
 - STCN（Casdoor）OIDC：

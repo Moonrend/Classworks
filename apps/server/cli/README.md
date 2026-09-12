@@ -24,7 +24,7 @@ node cli/get-token-callback.js
 两种模式都支持以下环境变量：
 
 ```bash
-# 设置API服务器地址（默认: http://localhost:3030）
+# 设置API服务器地址（默认: http://localhost:3000）
 export API_BASE_URL=https://your-api-server.com
 
 # 设置授权页面地址（默认: http://localhost:5173/authorize）
@@ -88,7 +88,7 @@ chmod +x cli/get-token.js
   设备授权码: 1234-ABCD
 ============================================================
 ℹ 授权码有效期: 15 分钟
-ℹ API服务器: http://localhost:3030
+ℹ API服务器: http://localhost:3000
 
 ℹ 请在浏览器中打开上述地址，或在授权页面手动输入设备代码
 ℹ 等待授权中...
@@ -106,7 +106,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ✓ 令牌已保存到: /home/user/.classworks/token.txt
 
 使用示例：
-  curl -H "Authorization: Bearer eyJhbGc..." http://localhost:3030/kv
+  curl -H "Authorization: Bearer eyJhbGc..." http://localhost:3000/kv
 ```
 
 ### 回调模式输出
@@ -126,7 +126,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
   状态参数: abc123
 ============================================================
 ℹ 回调地址: http://localhost:8080/callback
-ℹ API服务器: http://localhost:3030
+ℹ API服务器: http://localhost:3000
 ℹ 超时时间: 300 秒
 
 ℹ 正在启动回调服务器...
@@ -145,7 +145,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 ✓ 令牌已保存到: /home/user/.classworks/token-callback.txt
 
 使用示例：
-  curl -H "Authorization: Bearer eyJhbGc..." http://localhost:3030/kv
+  curl -H "Authorization: Bearer eyJhbGc..." http://localhost:3000/kv
 ```
 
 ## 配置选项
@@ -154,7 +154,7 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 可以通过修改相应文件中的 `CONFIG` 对象或设置环境变量来调整：
 
-- `baseUrl` / `API_BASE_URL` - API 服务器地址（默认: `http://localhost:3030`）
+- `baseUrl` / `API_BASE_URL` - API 服务器地址（默认: `http://localhost:3000`）
 - `authPageUrl` / `AUTH_PAGE_URL` - Classworks 授权页面地址（默认: `http://localhost:5173/authorize`）
 - `appId` / `APP_ID` - 应用ID（默认: 1）
 - `siteKey` / `SITE_KEY` - 站点密钥（如果需要）

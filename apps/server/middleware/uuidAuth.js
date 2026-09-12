@@ -9,7 +9,7 @@ import errors from '../utils/errors.js'
 import { verifyToken as verifyAccountJWT } from '../utils/jwt.js'
 import { verifyDevicePassword } from '../utils/crypto.js'
 import { prisma } from '../utils/prisma.js'
-import { HEADER_DEVICE_UUID } from '@classworks/shared'
+import { HEADER_DEVICE_UUID, HEADER_DEVICE_PASSWORD } from '@classworks/shared'
 
 /**
  * UUID+密码/JWT混合认证中间件
@@ -126,7 +126,7 @@ function extractUuid(req) {
  * 从请求中提取密码
  */
 function extractPassword(req) {
-  return req.headers['x-device-password'] || req.query.password || req.query.currentPassword
+  return req.headers[HEADER_DEVICE_PASSWORD] || req.query.password || req.query.currentPassword
 }
 
 /**

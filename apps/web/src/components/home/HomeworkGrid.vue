@@ -285,11 +285,6 @@ export default {
       isReadOnlyToken: false,
     }
   },
-  computed: {
-    settings() {
-      return settings
-    },
-  },
   async mounted() {
     this.resizeObserver = new ResizeObserver(() => {
       this.resizeAllGridItems()
