@@ -72,14 +72,14 @@ jobs:
           NODE
 
       - name: Upload validated PWA dist
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: classworks-pwa-dist
           path: apps/web/dist
           if-no-files-found: error
 
       - name: Upload Microsoft Store handoff
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: microsoft-store-handoff
           path: store-handoff
