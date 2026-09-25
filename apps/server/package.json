@@ -28,7 +28,7 @@
     "dotenv": "^16.5.0",
     "ejs": "^3.1.10",
     "express": "~5.1.0",
-    "express-rate-limit": "^7.5.0",
+    "express-rate-limit": "^8.6.2",
     "http-errors": "~2.0.0",
     "js-base64": "^3.7.7",
     "jsonwebtoken": "^9.0.2",
