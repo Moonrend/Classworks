@@ -41,7 +41,7 @@
     "@vitejs/plugin-vue": "^6.0.2",
     "pinia": "^3.0.4",
     "sass": "1.94.2",
-    "sass-embedded": "^1.93.3",
+    "sass-embedded": "^1.103.1",
     "unplugin-auto-import": "^20.3.0",
     "unplugin-fonts": "^1.4.0",
     "unplugin-vue-components": "^30.0.0",
