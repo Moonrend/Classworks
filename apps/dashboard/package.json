@@ -11,7 +11,7 @@
   "dependencies": {
     "@classworks/shared": "workspace:*",
     "@tailwindcss/vite": "^4.1.13",
-    "@tanstack/vue-table": "^8.21.3",
+    "@tanstack/vue-table": "^9.2.3",
     "@vee-validate/zod": "^4.15.1",
     "@vueuse/core": "^13.9.0",
     "axios": "^1.12.2",
