@@ -39,7 +39,7 @@
   "devDependencies": {
     "@vite-pwa/assets-generator": "^1.0.2",
     "@vitejs/plugin-vue": "^6.0.2",
-    "pinia": "^3.0.4",
+    "pinia": "^4.0.3",
     "sass": "1.94.2",
     "sass-embedded": "^1.93.3",
     "unplugin-auto-import": "^20.3.0",
