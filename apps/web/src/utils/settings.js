@@ -297,6 +297,16 @@ const settingsDefinitions = {
     // 选择数据存储方式：使用本地存储或远程服务器
   },
 
+  // 预配认证设置
+  'auth.autoProcessPreconfig': {
+    type: 'boolean',
+    default: true,
+    description: '自动处理预配认证链接',
+    icon: 'mdi-link-variant',
+    // 启用后，打开带预配参数（namespace/authCode）的链接时会自动弹出并执行设备认证；
+    // 关闭后仅保留手动认证，不再自动打开对话框或自动执行
+  },
+
   // 刷新设置
   'refresh.auto': {
     type: 'boolean',
