@@ -30,6 +30,26 @@
               @keyup="updateCurrentLine"
             />
 
+            <div v-if="showPasteButtons" class="d-flex gap-2 justify-center">
+              <v-btn
+                size="small"
+                variant="outlined"
+                prepend-icon="mdi-content-paste"
+                @click="pasteFromClipboard"
+              >
+                粘贴
+              </v-btn>
+              <v-btn
+                size="small"
+                variant="elevated"
+                color="primary"
+                prepend-icon="mdi-content-paste"
+                @click="pasteAndComplete"
+              >
+                粘贴并完成
+              </v-btn>
+            </div>
+
             <!-- Template Buttons Section -->
             <div v-if="templateData" class="mt-4">
               <div v-if="hasTemplates" class="template-buttons">
@@ -318,6 +338,9 @@ export default {
     showQuickTools() {
       return getSetting('display.showQuickTools')
     },
+    showPasteButtons() {
+      return getSetting('display.showPasteButtons')
+    },
     autoSavePromptText() {
       return getSetting('edit.autoSavePromptText')
     },
@@ -328,8 +351,9 @@ export default {
   watch: {
     async modelValue(newValue) {
       if (newValue) {
-        // 当对话框打开时，重置内容为初始内容
-        this.content = this.initialContent
+        // 当对话框打开时，重置内容为初始内容；最后一行不是空行时，在文末加一个空行
+        const initial = this.initialContent || ''
+        this.content = initial === '' || initial.endsWith('\n') ? initial : initial + '\n'
         // 加载模板数据
         try {
           this.templateData = await dataProvider.loadData('classworks-config-homework-template')
@@ -524,6 +548,47 @@ export default {
           textarea.setSelectionRange(start, start)
           this.updateCurrentLine()
         })
+      }
+    },
+    // 从剪贴板读取内容并按光标位置组装新正文：有选中则替换，否则在光标处插入
+    // 剪贴板完全为空时返回 null，空格或换行视为有效内容原样粘贴
+    async buildContentWithPaste() {
+      const text = await navigator.clipboard.readText()
+      if (text == null || text === '') return null
+      const textarea = this.$refs.inputRef.$el.querySelector('textarea')
+      const start = textarea.selectionStart
+      const end = textarea.selectionEnd
+      return {
+        content: this.content.slice(0, start) + text + this.content.slice(end),
+        cursorPosition: start + text.length,
+      }
+    },
+    // 从剪贴板粘贴，保留在对话框继续编辑
+    async pasteFromClipboard() {
+      try {
+        const result = await this.buildContentWithPaste()
+        if (!result) return
+        this.content = result.content
+        this.$nextTick(() => {
+          const textarea = this.$refs.inputRef.$el.querySelector('textarea')
+          textarea.focus()
+          textarea.setSelectionRange(result.cursorPosition, result.cursorPosition)
+          this.updateCurrentLine()
+        })
+      } catch (error) {
+        console.error('Failed to read clipboard:', error)
+      }
+    },
+    // 从剪贴板粘贴并直接保存关闭，插入逻辑与粘贴一致
+    async pasteAndComplete() {
+      try {
+        const result = await this.buildContentWithPaste()
+        if (!result) return
+        this.content = result.content
+        this.$emit('save', this.content.trim())
+        this.dialogVisible = false
+      } catch (error) {
+        console.error('Failed to read clipboard:', error)
       }
     },
   },

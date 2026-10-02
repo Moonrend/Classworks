@@ -212,6 +212,13 @@ const settingsDefinitions = {
     description: '是否显示快捷键盘',
     icon: 'mdi-dialpad',
   },
+  'display.showPasteButtons': {
+    type: 'boolean',
+    default: true,
+    description: '是否显示作业编辑粘贴按钮',
+    icon: 'mdi-content-paste',
+    // 控制作业编辑对话框中的「粘贴」与「粘贴并完成」按钮，关闭后仅保留手动编辑
+  },
   'display.forceDesktopMode': {
     type: 'boolean',
     default: false,
