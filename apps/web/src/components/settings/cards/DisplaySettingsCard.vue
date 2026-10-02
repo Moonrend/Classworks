@@ -59,9 +59,6 @@
 
       <v-divider class="my-2" />
       <setting-item :setting-key="'display.lateStudentsArePresent'" />
-
-      <v-divider class="my-2" />
-      <setting-item :setting-key="'auth.autoProcessPreconfig'" />
     </v-list>
   </settings-card>
 </template>

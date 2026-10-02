@@ -100,13 +100,7 @@ watch(
       form.value.password = newPreconfig.password || ''
 
       // 如果启用自动执行且有命名空间，自动尝试认证
-      // 用户可在界面设置中关闭预配认证链接的自动处理，此时仅预填不自动执行
-      if (
-        newPreconfig.autoExecute &&
-        newPreconfig.namespace &&
-        !autoExecuteStarted &&
-        getSetting('auth.autoProcessPreconfig')
-      ) {
+      if (newPreconfig.autoExecute && newPreconfig.namespace && !autoExecuteStarted) {
         autoExecuteStarted = true
         console.log('检测到自动执行标志且有命名空间，自动执行认证')
         // 延迟一下确保UI已更新

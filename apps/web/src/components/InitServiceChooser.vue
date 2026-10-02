@@ -181,8 +181,6 @@ const evaluateVisibility = () => {
 // 预配数据可能在异步组件加载前就已解析完毕；此时 immediate watch 会赶上 visible 仍为 false。
 // 因此在 visible 变为 true 后再尝试一次自动打开。
 const tryAutoOpenDeviceAuth = () => {
-  // 用户可在界面设置中关闭预配认证链接的自动处理
-  if (!getSetting('auth.autoProcessPreconfig')) return
   if (!visible.value || showDeviceAuthDialog.value) return
   if (!props.preconfig?.autoOpen || !props.preconfig?.namespace) return
   console.log('检测到预配数据，自动打开设备认证对话框')
